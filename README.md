@@ -4,5 +4,5 @@ compress the image will result in:
 
 ####第二门课 CNN
 1、history = model.fit()
-
+2、
 
