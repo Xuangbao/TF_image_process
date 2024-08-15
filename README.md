@@ -8,7 +8,18 @@ compress the image will result in:
 3、如果验证集的数据和训练集很像，或者没有随机性，即使做了图像增强也会导致验证集的准确率上下波动
 4、CNN的input shape必须是 (batchsize,150,150,bites),所以在对一张图片进行预测的时候需要 扩大维数，(1,150,150,3)
 #### Transfer learning
-inceptionv3-> top = false(全连接层 不要)-> weights = false 舍弃CNN层中的参数 -> 把所有层冻结了 untrainable
-getlayers.output 获取 最后一层想要利用的layer的output
+inceptionv3（需指定引用该模型的input size是多少）-> top = false(全连接层 不要)-> weights = None 舍弃CNN层中的参数 -> 把所有层冻结了 untrainable
+get_layers('layers名字').output 获取 最后一层想要利用的layer的output
 通过 x = layers.Flatten()(last_output) 连接上CNN的自定义的最后一层
-x = layers.Dropout(0.2)(x) +   model = Model(pre_trained_model.input, x) 进行拼接
+###用dropout来避免过拟合
+x = layers.Dropout(0.2)(x) +   model = Model(pre_trained_model.input, x) #### model函数进行拼接
+当然可以在transfer learning 的时候进行data augumentation，因为最底下的 全连接层 是需要训练的
+###
+多元分类
+改动的地方：
+1、train_generator 里面class mode要修改
+2、model.compile里面的loss function要修改
+3、最后的输出函数改成 softmax+ 神经元数量修改
+
+
+
