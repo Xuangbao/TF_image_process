@@ -22,4 +22,4 @@ x = layers.Dropout(0.2)(x) +   model = Model(pre_trained_model.input, x) #### mo
 3、最后的输出函数改成 softmax+ 神经元数量修改
 ####loss function
 4、注意多元分类时，如果你的标签是整数形式（即每个标签是一个单独的类别编号，如 [0, 1, 2, ...]），但模型期望的是 one-hot 编码的标签（即 [0, 0, 1, ...] 形式的向量），这时loss function要用 sparse_categorical_crossentropy 
-
+5、flow方法加载数据，见assignment C2W4
