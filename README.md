@@ -25,8 +25,13 @@ x = layers.Dropout(0.2)(x) +   model = Model(pre_trained_model.input, x) #### mo
 5、用flow方法加载数据，见assignment C2W4
 ##################
 第三门课 NLP
-1、padding：针对一个大的list包含几句单词不一样长的话，有三种方式进行填充：前填充、后填充、不填充
-2、
+1、padding：针对一个大的list包含几句单词不一样长的话，有三种方式进行填充（必须得到的list of list of numbers是相同长度的）：前填充、后填充、不填充
+默认是后填充：sequences_post = vectorize_layer(sentences)
+也可以前填充：tf_dataset= tf.data.Dataset.from_tensor_slices(sentences)
+            df = tf_dataset.map(vectorize_layer) ##得到不一样长的语句的vector的编码
+            sequences_pre = tf.keras.utils.pad_sequences(df, padding='pre')
+也可以不填充 省略...
+
 
 
 
