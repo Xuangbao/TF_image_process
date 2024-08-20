@@ -31,6 +31,7 @@ x = layers.Dropout(0.2)(x) +   model = Model(pre_trained_model.input, x) #### mo
             df = tf_dataset.map(vectorize_layer) ##得到不一样长的语句的vector的编码
             sequences_pre = tf.keras.utils.pad_sequences(df, padding='pre')
 也可以不填充 省略...
+2、在自然语言处理（NLP）模型中，词汇表外（Out-Of-Vocabulary, OOV）的词通常是用一个特殊的标记来表示的，比如 <UNK>（unknown, 未知）。这样，当模型遇到不在词汇表中的单词时，就会用这个特殊的标记来替代，而不是用0或者是其他替代方法。
 
 
 
