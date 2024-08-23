@@ -1,4 +1,4 @@
-compress the image will result in:
+![image](https://github.com/user-attachments/assets/7b75879d-6dea-4ac1-b816-b3393f6c2bdb)compress the image will result in:
 300*300 -> 150 * 150 , thus the number of CNN layers should reduced -> the final prediction of the model will change 
 需要改变的地方：1、CNN第一个layer的input size要修改 150*150 2、training_generator 的target_size要修改成（150，150）
 
@@ -38,6 +38,34 @@ RaggedTensor 允许每行（或更高维度的子数组）具有不同的长度
 [[1, 2],
  [3, 4, 5],
  [6]]
+ #################
+def padding_func(sequences):
+  '''Generates padded sequences from a tf.data.Dataset'''
+  #只有ragged_batch才能存在
+  # Put all elements in a single ragged batch
+  sequences = sequences.ragged_batch(batch_size=sequences.cardinality())
+    #ragged_batch：将 tf.data.Dataset 中的所有序列合并成一个批次，并且保留每个序列的原始长度。
+  print(type(sequences))
+  # Output a tensor from the single batch
+  sequences = sequences.get_single_element()
+  print(type(sequences))
+  # Pad the sequences 函数的input是numpy数组
+  padded_sequences = tf.keras.utils.pad_sequences(sequences.numpy(), 
+                                                  maxlen=MAX_LENGTH, 
+                                                  truncating=TRUNC_TYPE, 
+                                                  padding=PADDING_TYPE
+                                                 )
+  print(type(padded_sequences))
+  # Convert back to a tf.data.Dataset
+  padded_sequences = tf.data.Dataset.from_tensor_slices(padded_sequences)
+
+  return padded_sequences
+  ############################
+如果你直接对 tf.data.Dataset 进行填充而不先使用 ragged_batch()，会遇到以下问题：
+
+无法直接处理不规则形状的张量：tf.data.Dataset 的每个元素在默认情况下必须具有相同的形状。如果数据集中有不规则长度的序列，TensorFlow 将无法直接将它们组合到一起进行填充。
+处理复杂性：使用 ragged_batch() 可以有效地将不规则的序列合并并保留其长度，之后再将它们转为 numpy 数组，这样可以方便地使用 pad_sequences 进行填充。
+ ########################
 4、batch和tensor区别：
 如果单个样本是一个形状为 [28, 28, 3] 的张量（表示一张 28x28 像素的 RGB 图像），那么一个包含 32 个样本的批次将表示为形状为 [32, 28, 28, 3] 的张量。
 一个批次本质上是一个张量，但它多了一维来表示批次大小
@@ -51,7 +79,7 @@ RaggedTensor 允许每行（或更高维度的子数组）具有不同的长度
 随机选择过程：当你调用 shuffle(1000) 时，TensorFlow 会将前 1000 张图像加载到缓冲区中，然后在这些图像中随机选择一张输出给下一步的处理。在输出一张图像后，缓冲区会从数据集中再读取一张新的图像填充进来，以保持缓冲区中有 1000 张图像供随机选择。
 打乱过程：前 1000 张图像被加载到缓冲区中，TensorFlow 在这些图像中随机选择一个输出。
 批次生成：batch(32) 会从打乱后的输出中每次取出 32 张图像，形成一个批次。由于这些图像的顺序是经过 shuffle 处理的，因此它们是随机组合的。
-7、
+7、在模型训练中：这种将输入数据和标签数据打包成元组的形式是训练机器学习模型（尤其是深度学习模型）时的标准做法。在模型训练时，fit 方法期望接收的数据集格式通常是 (input, label) 的形式。
 
 
 
