@@ -32,7 +32,26 @@ x = layers.Dropout(0.2)(x) +   model = Model(pre_trained_model.input, x) #### mo
             sequences_pre = tf.keras.utils.pad_sequences(df, padding='pre')
 也可以不填充 省略...
 2、在自然语言处理（NLP）模型中，词汇表外（Out-Of-Vocabulary, OOV）的词通常是用一个特殊的标记来表示的，比如 <UNK>（unknown, 未知）。这样，当模型遇到不在词汇表中的单词时，就会用这个特殊的标记来替代，而不是用0或者是其他替代方法。
-
+3、普通张量是一个具有固定形状的多维数组。例如，一个形状为 [2, 3] 的二维张量可以表示为：
+[[1,2,3],[1,2,3]
+RaggedTensor 允许每行（或更高维度的子数组）具有不同的长度
+[[1, 2],
+ [3, 4, 5],
+ [6]]
+4、batch和tensor区别：
+如果单个样本是一个形状为 [28, 28, 3] 的张量（表示一张 28x28 像素的 RGB 图像），那么一个包含 32 个样本的批次将表示为形状为 [32, 28, 28, 3] 的张量。
+一个批次本质上是一个张量，但它多了一维来表示批次大小
+5、<class 'tensorflow.python.data.ops.batch_op._BatchDataset'> 是 TensorFlow 中的一个数据结构，它表示 tf.data.Dataset 的一种特殊类型，称为 BatchDataset。这个数据结构是在使用 batch() 方法将数据集划分为批次时生成的
+6、train_dataset_final = (train_dataset_vectorized
+                       .cache()
+                       .shuffle(SHUFFLE_BUFFER_SIZE)
+                       .prefetch(PREFETCH_BUFFER_SIZE)
+                       .batch(BATCH_SIZE)
+                       )
+随机选择过程：当你调用 shuffle(1000) 时，TensorFlow 会将前 1000 张图像加载到缓冲区中，然后在这些图像中随机选择一张输出给下一步的处理。在输出一张图像后，缓冲区会从数据集中再读取一张新的图像填充进来，以保持缓冲区中有 1000 张图像供随机选择。
+打乱过程：前 1000 张图像被加载到缓冲区中，TensorFlow 在这些图像中随机选择一个输出。
+批次生成：batch(32) 会从打乱后的输出中每次取出 32 张图像，形成一个批次。由于这些图像的顺序是经过 shuffle 处理的，因此它们是随机组合的。
+7、
 
 
 
