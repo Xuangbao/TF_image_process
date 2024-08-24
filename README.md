@@ -94,7 +94,8 @@ print(f"Shape of the validation batch: {validation_batch[0].shape}")
 答案：（32，120）
 next()：用于从迭代器中获取下一个元素。在这个上下文中，它返回的是 train_proc_dataset 中的一个批次的数据。
 14、好好复习一下C3W2_assignment的细节，有很多细节
-
+15、concatenate函数可以直接用于两个tf.dataset的（还可以用于很多其他相同格式的两个东西，类似于list的相加）拼接 A.concatenate(B)
+16、在初始化Textvectorlize_layer的时候设置最大可以给多少个单词打标签 在填充（padding）的时候决定每句话保留多少个单词
 
 
 
