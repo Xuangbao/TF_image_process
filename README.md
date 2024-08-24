@@ -82,6 +82,7 @@ def padding_func(sequences):
 7、在模型训练中：这种将输入数据和标签数据打包成元组的形式是训练机器学习模型（尤其是深度学习模型）时的标准做法。在模型训练时，fit 方法期望接收的数据集格式通常是 (input, label) 的形式。
 8、tf.data.Dataset 更像是一个生成器或迭代器，而不是一个静态的数据结构。它定义了数据生成的过程，而不是存储实际数据。因此，tf.data.Dataset 需要通过 map() 等操作逐个处理数据，而不能直接像列表或数组那样批量传递给 vectorize_layer。
 9、用 sub_wordtocken的好处在于可以把一个单词切分成字母，所以在解码没见过的单词的时候可以认出来更多未知的单词。因而在decode一个string的时候也会让sequence的长度更长
+10、需要处理掉每句话中的stopwords，目的：This should improve the performance of your classifier by removing frequently used words that don't add information to determine the topic of the news
 
 
 
