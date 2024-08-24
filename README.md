@@ -93,6 +93,7 @@ print(f"Shape of the train batch: {train_batch[0].shape}")
 print(f"Shape of the validation batch: {validation_batch[0].shape}")
 答案：（32，120）
 next()：用于从迭代器中获取下一个元素。在这个上下文中，它返回的是 train_proc_dataset 中的一个批次的数据。
+14、好好复习一下C3W2_assignment的细节，有很多细节
 
 
 
