@@ -83,8 +83,16 @@ def padding_func(sequences):
 8、tf.data.Dataset 更像是一个生成器或迭代器，而不是一个静态的数据结构。它定义了数据生成的过程，而不是存储实际数据。因此，tf.data.Dataset 需要通过 map() 等操作逐个处理数据，而不能直接像列表或数组那样批量传递给 vectorize_layer。
 9、用 sub_wordtocken的好处在于可以把一个单词切分成字母，所以在解码没见过的单词的时候可以认出来更多未知的单词。因而在decode一个string的时候也会让sequence的长度更长
 10、需要处理掉每句话中的stopwords，目的：This should improve the performance of your classifier by removing frequently used words that don't add information to determine the topic of the news
-
-
+11、model input_shape的问题
+如果你有不同长度的句子，每个词被嵌入为一个 128 维的向量，那么 input_shape 可以是 (None, 128)，这里 None 表示句子的词数不固定，而 128 是词嵌入的维度。
+表示一个固定长度的序列输入，其中 sequence_length 是序列的长度，并且只有1维
+12、在初始化处理text层的时候，可以 tf.keras.layers.TextVectorization(standardize = func,output_sequence_length= ) 加入这两个参数，第一个参数表示这个层在处理序列中的每个语句的时候都调用该函数（可以是去没用词的时候），另外一个参数保证了 使用Vectorization（text）的时候保证每句话的输出 是经过填充的该size的一个向量
+13、train_batch = next(train_proc_dataset.as_numpy_iterator())
+validation_batch = next(validation_proc_dataset.as_numpy_iterator())
+print(f"Shape of the train batch: {train_batch[0].shape}")
+print(f"Shape of the validation batch: {validation_batch[0].shape}")
+答案：（32，120）
+next()：用于从迭代器中获取下一个元素。在这个上下文中，它返回的是 train_proc_dataset 中的一个批次的数据。
 
 
 
