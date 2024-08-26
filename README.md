@@ -96,7 +96,9 @@ next()：用于从迭代器中获取下一个元素。在这个上下文中，�
 14、好好复习一下C3W2_assignment的细节，有很多细节
 15、concatenate函数可以直接用于两个tf.dataset的（还可以用于很多其他相同格式的两个东西，类似于list的相加）拼接 A.concatenate(B)
 16、在初始化Textvectorlize_layer的时候设置最大可以给多少个单词打标签 在填充（padding）的时候决定每句话保留多少个单词
-
+17、Conv1D用于text的分组任务（同理用GlobalMaxPooling1D），因为每一个input text都是一维向量，而比如（120,）,注意写input size的时候不要加上batch_size这个维度，但是最后的model.summary()是有none即batch这个维度在最前面的
+18、embedding层里面的output（120，16），16只是用来看的，不会给这个句子增加维度，最后的主要目标还是给句子进行分组
+19、conv1d(120,5,activation='relu')的意思是120个convolution，然后每个取的小区域都是5*1的，所以头尾要去掉两个维度最后
 
 
 
