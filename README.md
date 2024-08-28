@@ -99,7 +99,7 @@ next()：用于从迭代器中获取下一个元素。在这个上下文中，�
 17、Conv1D用于text的分组任务（同理用GlobalMaxPooling1D），因为每一个input text都是一维向量，而比如（120,）,注意写input size的时候不要加上batch_size这个维度，但是最后的model.summary()是有none即batch这个维度在最前面的
 18、embedding层里面的output（120，16），16只是用来看的，不会给这个句子增加维度，最后的主要目标还是给句子进行分组
 19、conv1d(120,5,activation='relu')的意思是120个convolution，然后每个取的小区域都是5*1的，所以头尾要去掉两个维度最后
-
+20\当一个tf.dataset被分成批次之后，len(train_dataset) 返回的是一共 有多少批，不是数据的总长度
 
 
 
