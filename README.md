@@ -106,7 +106,7 @@ next()：用于从迭代器中获取下一个元素。在这个上下文中，�
 23、using callback里面的东西在每一轮都可以改变learning rate，然后画出每一轮 的loss和learning rate的关系图，选择一个稳定的值作为学习率的选择
 24、 C4W3为做数据提供了模板，重点看预测的部分怎么样分成 window + batch_size的
 25、预测的时候提高准确性的做法：先找到最佳的learning rate（如上），然后观察loss还有accuracy随训练次数的变化时间图，找到最佳的训练次数（过了之后可能loss会直线上升），从而从两方面（梯度下降的学习率和训练次数过拟合共同改变模型的预测能力） 
-
+26）、If after the first epoch you get an output like this: loss: nan - mae: nan it is very likely that your network is suffering from exploding gradients. This is a common problem if you used SGD as optimizer and set a learning rate that is too high. If you encounter this problem consider lowering the learning rate or using Adam with the default learning rate.
 
 
 
