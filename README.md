@@ -107,7 +107,9 @@ next()：用于从迭代器中获取下一个元素。在这个上下文中，�
 24、 C4W3为做数据提供了模板，重点看预测的部分怎么样分成 window + batch_size的
 25、预测的时候提高准确性的做法：先找到最佳的learning rate（如上），然后观察loss还有accuracy随训练次数的变化时间图，找到最佳的训练次数（过了之后可能loss会直线上升），从而从两方面（梯度下降的学习率和训练次数过拟合共同改变模型的预测能力） 
 26）、If after the first epoch you get an output like this: loss: nan - mae: nan it is very likely that your network is suffering from exploding gradients. This is a common problem if you used SGD as optimizer and set a learning rate that is too high. If you encounter this problem consider lowering the learning rate or using Adam with the default learning rate.
-
+27)、通过改变batch size（2的倍数）可以改变模型的效果
+28）、预测的步骤：有一个dataset-> 给它增加维度-> 分割成各个window size-> 取batch shuffer   catch（）prefetch  -> 模型的输入可以带上training set的最后window_size的一部分数据进行输入，以保证validation的预测值数量和原集合数量一样
+29)、用conv叠加lstm的时候，需要保证传递给lstm的第一个值（即被当作t=0的预测的值）不能带有原数据集t =1 或者t=2的值，即只能用t=0或者之前的值预测t=0，所以这个时候就可以使用conv里面的padding的功能
 
 
 
