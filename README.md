@@ -110,6 +110,9 @@ next()：用于从迭代器中获取下一个元素。在这个上下文中，�
 27)、通过改变batch size（2的倍数）可以改变模型的效果
 28）、预测的步骤：有一个dataset-> 给它增加维度-> 分割成各个window size-> 取batch shuffer   catch（）prefetch  -> 模型的输入可以带上training set的最后window_size的一部分数据进行输入，以保证validation的预测值数量和原集合数量一样
 29)、用conv叠加lstm的时候，需要保证传递给lstm的第一个值（即被当作t=0的预测的值）不能带有原数据集t =1 或者t=2的值，即只能用t=0或者之前的值预测t=0，所以这个时候就可以使用conv里面的padding的功能
+30)、不仅可以尝试改变batch size，也可以尝试改变window size，即用多少数据去预测下一个数据，其实不需要用完整的一个周期作为window size
+31)、rnn的default activation function是tanh,取值在[-1,1]，所以可以根据需要对lambda layer进行放缩
+
 
 
 
